@@ -3,24 +3,24 @@
 ### 作者微博: [@GcsSloop](http://weibo.com/GcsSloop)
 ### [【本系列相关文章】](https://github.com/GcsSloop/AndroidNote/tree/master/CustomView/README.md)
 
-上一篇[Canvas之绘制基本形状](https://github.com/GcsSloop/AndroidNote/blob/master/CustomView/Advance/%5B2%5DCanvas_BasicGraphics.md)中我们了解了如何使用Canvas绘制基本图形，本次了解一些基本的画布操作。
+上一篇[Canvas之绘制基本形状](https://github.com/GcsSloop/AndroidNote/blob/master/CustomView/Advance/%5B02%5DCanvas_BasicGraphics.md)中我们了解了如何使用Canvas绘制基本图形，本次了解一些基本的画布操作。
 
 本来想把画布操作放到后面部分的，但是发现很多图形绘制都离不开画布操作，于是先讲解一下画布的基本操作方法。
 
 ## 一.Canvas的常用操作速查表
 
-操作类型 | 相关API | 备注
---- | --- | ---
-绘制颜色 | drawColor, drawRGB, drawARGB | 使用单一颜色填充整个画布
-绘制基本形状 | drawPoint, drawPoints, drawLine, drawLines, drawRect, drawRoundRect, drawOval, drawCircle, drawArc | 依次为 点、线、矩形、圆角矩形、椭圆、圆、圆弧
-绘制图片 | drawBitmap, drawPicture | 绘制位图和图片
-绘制文本 | drawText,    drawPosText, drawTextOnPath | 依次为 绘制文字、绘制文字时指定每个文字位置、根据路径绘制文字
-绘制路径 | drawPath | 绘制路径，绘制贝塞尔曲线时也需要用到该函数
-顶点操作 | drawVertices, drawBitmapMesh | 通过对顶点操作可以使图像形变，drawVertices直接对画布作用、 drawBitmapMesh只对绘制的Bitmap作用
-画布剪裁 | clipPath,    clipRect | 设置画布的显示区域
-画布快照 | save, restore, saveLayerXxx, restoreToCount, getSaveCount | 依次为 保存当前状态、 回滚到上一次保存的状态、 保存图层状态、 回滚到指定状态、 获取保存次数
-画布变换 | translate, scale, rotate, skew | 依次为 位移、缩放、 旋转、错切
-Matrix(矩阵) | getMatrix, setMatrix, concat | 实际上画布的位移，缩放等操作的都是图像矩阵Matrix， 只不过Matrix比较难以理解和使用，故封装了一些常用的方法。
+| 操作类型       | 相关API                                    | 备注                                       |
+| ---------- | ---------------------------------------- | ---------------------------------------- |
+| 绘制颜色       | drawColor, drawRGB, drawARGB             | 使用单一颜色填充整个画布                             |
+| 绘制基本形状     | drawPoint, drawPoints, drawLine, drawLines, drawRect, drawRoundRect, drawOval, drawCircle, drawArc | 依次为 点、线、矩形、圆角矩形、椭圆、圆、圆弧                  |
+| 绘制图片       | drawBitmap, drawPicture                  | 绘制位图和图片                                  |
+| 绘制文本       | drawText,    drawPosText, drawTextOnPath | 依次为 绘制文字、绘制文字时指定每个文字位置、根据路径绘制文字          |
+| 绘制路径       | drawPath                                 | 绘制路径，绘制贝塞尔曲线时也需要用到该函数                    |
+| 顶点操作       | drawVertices, drawBitmapMesh             | 通过对顶点操作可以使图像形变，drawVertices直接对画布作用、 drawBitmapMesh只对绘制的Bitmap作用 |
+| 画布剪裁       | clipPath,    clipRect                    | 设置画布的显示区域                                |
+| 画布快照       | save, restore, saveLayerXxx, restoreToCount, getSaveCount | 依次为 保存当前状态、 回滚到上一次保存的状态、 保存图层状态、 回滚到指定状态、 获取保存次数 |
+| 画布变换       | translate, scale, rotate, skew           | 依次为 位移、缩放、 旋转、错切                         |
+| Matrix(矩阵) | getMatrix, setMatrix, concat             | 实际上画布的位移，缩放等操作的都是图像矩阵Matrix， 只不过Matrix比较难以理解和使用，故封装了一些常用的方法。 |
 
 ******
 ## 二.Canvas基本操作
@@ -61,7 +61,7 @@ Matrix(矩阵) | getMatrix, setMatrix, concat | 实际上画布的位移，缩�
         canvas.drawCircle(0,0,100,mPaint);
 ```
 
-<img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f2f1ph46qaj30u01hcgm3.jpg" width = "300"/>  
+<img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f2f1ph46qaj30u01hcgm3.jpg" width="300"/>  
 
 我们首先将坐标系移动一段距离绘制一个圆形，之后再移动一段距离绘制一个圆形，<b>两次移动是可叠加的</b>。
 
@@ -77,15 +77,15 @@ Matrix(矩阵) | getMatrix, setMatrix, concat | 实际上画布的位移，缩�
 
 缩放比例(sx,sy)取值范围详解：
 
-取值范围(n)| 说明
---------- | ------
-[-∞, -1)  | 先根据缩放中心放大n倍，再根据中心轴进行翻转
--1        | 根据缩放中心轴进行翻转
-(-1, 0)   | 先根据缩放中心缩小到n，再根据中心轴进行翻转
-0         | 不会显示，若sx为0，则宽度为0，不会显示，sy同理
-(0, 1)    | 根据缩放中心缩小到n
-1         | 没有变化
-(1, +∞)   | 根据缩放中心放大n倍
+| 取值范围(n) | 说明                                           |
+| ----------- | ---------------------------------------------- |
+| (-∞, -1)    | 先根据缩放中心放大n倍，再根据中心轴进行翻转    |
+| -1          | 根据缩放中心轴进行翻转                         |
+| (-1, 0)     | 先根据缩放中心缩小到n，再根据中心轴进行翻转    |
+| 0           | 不会显示，若sx为0，则宽度为0，不会显示，sy同理 |
+| (0, 1)      | 根据缩放中心缩小到n                            |
+| 1           | 没有变化                                       |
+| (1, +∞)     | 根据缩放中心放大n倍                            |
 
 如果在缩放时稍微注意一下就会发现<b>缩放的中心默认为坐标原点,而缩放中心轴就是坐标轴</b>，如下：
 
@@ -105,7 +105,7 @@ Matrix(矩阵) | getMatrix, setMatrix, concat | 实际上画布的位移，缩�
 ```
 (为了更加直观，我添加了一个坐标系，可以比较明显的看出，缩放中心就是坐标原点)
 
-<img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f2f1vphdjjj30u01hct9r.jpg" width = "300" />  
+<img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f2f1vphdjjj30u01hct9r.jpg" width="300" />  
 
 接下来我们使用第二种方法让缩放中心位置稍微改变一下，如下：
 ``` java
@@ -124,7 +124,7 @@ Matrix(矩阵) | getMatrix, setMatrix, concat | 实际上画布的位移，缩�
 ```
 (图中用箭头指示的就是缩放中心。)
 
-<img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f2f1w7kv8dj30u01hct9s.jpg" width = "300" />  
+<img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f2f1w7kv8dj30u01hct9s.jpg" width="300" />  
 
 前面两个示例缩放的数值都是正数，按照表格中的说明，**当缩放比例为负数的时候会根据缩放中心轴进行翻转**，下面我们就来实验一下：
 
@@ -181,6 +181,9 @@ Matrix(矩阵) | getMatrix, setMatrix, concat | 实际上画布的位移，缩�
 调用两次缩放则 x轴实际缩放为0.5x0.5=0.25 y轴实际缩放为0.5x0.1=0.05
 
 下面我们利用这一特性制作一个有趣的图形。
+
+> 注意设置画笔模式为描边(STROKE)
+
 ``` java
         // 将坐标系原点移动到画布正中心
         canvas.translate(mWidth / 2, mHeight / 2);
@@ -194,7 +197,7 @@ Matrix(矩阵) | getMatrix, setMatrix, concat | 实际上画布的位移，缩�
         }
 ```
 
-<img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f2f1yfn22xj30u01hcta9.jpg" width = "300" />  
+<img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f2f1yfn22xj30u01hcta9.jpg" width="300" />  
 
 *****
 #### ⑶旋转(rotate)
@@ -222,7 +225,7 @@ Matrix(矩阵) | getMatrix, setMatrix, concat | 实际上画布的位移，缩�
         canvas.drawRect(rect,mPaint);
 ```
 
-<img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f2f1yws38nj30u01hcmy8.jpg" width = "300" />  
+<img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f2f1yws38nj30u01hcmy8.jpg" width="300" />  
 
 改变旋转中心位置：
 ``` java
@@ -240,7 +243,7 @@ Matrix(矩阵) | getMatrix, setMatrix, concat | 实际上画布的位移，缩�
         canvas.drawRect(rect,mPaint);
 ```
 
-<img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f2f1zcmwb2j30u01hcmy9.jpg" width = "300" />
+<img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f2f1zcmwb2j30u01hcmy9.jpg" width="300" />
 
 <b>好吧，旋转也是可叠加的</b>
 ``` java
@@ -262,7 +265,7 @@ Matrix(矩阵) | getMatrix, setMatrix, concat | 实际上画布的位移，缩�
             canvas.rotate(10);
         }
 ```
-<img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f2f1zsnj00j30u01hc75a.jpg" width = "300" />  
+<img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f2f1zsnj00j30u01hc75a.jpg" width="300" />  
 
 *****
 #### ⑷错切(skew)
@@ -299,7 +302,7 @@ Y = sy * x + y
         mPaint.setColor(Color.BLUE);            // 绘制蓝色矩形
         canvas.drawRect(rect,mPaint);
 ```
-<img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f2f20h7i23j30u01hcdgq.jpg" width = "300" />  
+<img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f2f20h7i23j30u01hcdgq.jpg" width="300" />  
 
 <b>如你所想，错切也是可叠加的，不过请注意，调用次序不同绘制结果也会不同</b>
 ``` java
@@ -318,25 +321,25 @@ Y = sy * x + y
         canvas.drawRect(rect,mPaint);
 ```
 
-<img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f2f20w0rffj30u01hcgm8.jpg" width = "300" />
+<img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f2f20w0rffj30u01hcgm8.jpg" width="300" />
 
 *****
 #### ⑸快照(save)和回滚(restore)
 
 <b>
-Q: 为什存在快照与回滚<br/>
+Q: 为什么存在快照与回滚<br/>
 A：画布的操作是不可逆的，而且很多画布操作会影响后续的步骤，例如第一个例子，两个圆形都是在坐标原点绘制的，而因为坐标系的移动绘制出来的实际位置不同。所以会对画布的一些状态进行保存和回滚。
 </b>
 
 <b>与之相关的API:</b>
 
-相关API | 简介
---- | ---
-save | 把当前的画布的状态进行保存，然后放入特定的栈中
-saveLayerXxx | 新建一个图层，并放入特定的栈中
-restore | 把栈中最顶层的画布状态取出来，并按照这个状态恢复当前的画布
-restoreToCount| 弹出指定位置及其以上所有的状态，并按照指定位置的状态进行恢复
-getSaveCount | 获取栈中内容的数量(即保存次数)
+| 相关API          | 简介                             |
+| -------------- | ------------------------------ |
+| save           | 把当前的画布的状态进行保存，然后放入特定的栈中        |
+| saveLayerXxx   | 新建一个图层，并放入特定的栈中                |
+| restore        | 把栈中最顶层的画布状态取出来，并按照这个状态恢复当前的画布  |
+| restoreToCount | 弹出指定位置及其以上所有的状态，并按照指定位置的状态进行恢复 |
+| getSaveCount   | 获取栈中内容的数量(即保存次数)               |
 
 下面对其中的一些概念和方法进行分析：
 
@@ -359,14 +362,14 @@ A：实际上我们看到的画布是由多个图层构成的，如下图(图片
 
 ##### SaveFlags
 
-数据类型 | 名称 | 简介
---- | --- | ---
-int |	ALL_SAVE_FLAG	              | 默认，保存全部状态
-int	| CLIP_SAVE_FLAG	             | 保存剪辑区
-int	| CLIP_TO_LAYER_SAVE_FLAG	    | 剪裁区作为图层保存
-int	| FULL_COLOR_LAYER_SAVE_FLAG	 | 保存图层的全部色彩通道
-int	| HAS_ALPHA_LAYER_SAVE_FLAG	  | 保存图层的alpha(不透明度)通道
-int	| MATRIX_SAVE_FLAG	           | 保存Matrix信息(translate, rotate, scale, skew)
+| 数据类型 | 名称                         | 简介                                       |
+| ---- | -------------------------- | ---------------------------------------- |
+| int  | ALL_SAVE_FLAG              | 默认，保存全部状态                                |
+| int  | CLIP_SAVE_FLAG             | 保存剪辑区                                    |
+| int  | CLIP_TO_LAYER_SAVE_FLAG    | 剪裁区作为图层保存                                |
+| int  | FULL_COLOR_LAYER_SAVE_FLAG | 保存图层的全部色彩通道                              |
+| int  | HAS_ALPHA_LAYER_SAVE_FLAG  | 保存图层的alpha(不透明度)通道                       |
+| int  | MATRIX_SAVE_FLAG           | 保存Matrix信息(translate, rotate, scale, skew) |
 
 ##### save
 save 有两种方法：
@@ -440,7 +443,7 @@ public int saveLayerAlpha (float left, float top, float right, float bottom, int
 ## About Me
 ### 作者微博: <a href="http://weibo.com/GcsSloop" target="_blank">@GcsSloop</a>
 
-<a href="https://github.com/GcsSloop/AndroidNote/blob/magic-world/FINDME.md" target="_blank"> <img src="http://ww4.sinaimg.cn/large/005Xtdi2gw1f1qn89ihu3j315o0dwwjc.jpg" width=300/> </a>
+<a href="https://github.com/GcsSloop/AndroidNote/blob/magic-world/FINDME.md" target="_blank"> <img src="http://ww4.sinaimg.cn/large/005Xtdi2gw1f1qn89ihu3j315o0dwwjc.jpg" width="300"/> </a>
 
 ******
 ## 四.参考资料

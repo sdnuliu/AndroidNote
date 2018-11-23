@@ -3,7 +3,7 @@
 ### 作者微博: [@GcsSloop](http://weibo.com/GcsSloop)
 ### [【本系列相关文章】](https://github.com/GcsSloop/AndroidNote/tree/master/CustomView/README.md)
 
-在上一篇[自定义View分类与流程](https://github.com/GcsSloop/AndroidNote/blob/master/CustomView/Advance/%5B1%5DCustomViewProcess.md)中我们了解自定义View相关的基本知识，不过，这些东西依旧还是理论，并不能**拿来(zhuang)用(B)**, 这一次我们就了解一些**能(zhaung)用(B)**的东西。
+在上一篇[自定义View分类与流程](https://github.com/GcsSloop/AndroidNote/blob/master/CustomView/Advance/%5B01%5DCustomViewProcess.md)中我们了解自定义View相关的基本知识，不过，这些东西依旧还是理论，并不能**拿来(zhuang)用(B)**, 这一次我们就了解一些**能(zhaung)用(B)**的东西。
 
 在本篇文章中，我们先了解Canvas的基本用法，最后用一个小示例来结束本次教程。
 
@@ -19,18 +19,18 @@ Canvas我们可以称之为画布，能够在上面绘制各种东西，是安�
 
 ## 二.Canvas的常用操作速查表
 
-操作类型 | 相关API | 备注
---- | --- | ---
-绘制颜色 | drawColor, drawRGB, drawARGB | 使用单一颜色填充整个画布
-绘制基本形状 | drawPoint, drawPoints, drawLine, drawLines, drawRect, drawRoundRect, drawOval, drawCircle, drawArc | 依次为 点、线、矩形、圆角矩形、椭圆、圆、圆弧
-绘制图片 | drawBitmap, drawPicture | 绘制位图和图片
-绘制文本 | drawText,    drawPosText, drawTextOnPath | 依次为 绘制文字、绘制文字时指定每个文字位置、根据路径绘制文字
-绘制路径 | drawPath | 绘制路径，绘制贝塞尔曲线时也需要用到该函数
-顶点操作 | drawVertices, drawBitmapMesh | 通过对顶点操作可以使图像形变，drawVertices直接对画布作用、 drawBitmapMesh只对绘制的Bitmap作用
-画布剪裁 | clipPath,    clipRect | 设置画布的显示区域
-画布快照 | save, restore, saveLayerXxx, restoreToCount, getSaveCount | 依次为 保存当前状态、 回滚到上一次保存的状态、 保存图层状态、 回滚到指定状态、 获取保存次数
-画布变换 | translate, scale, rotate, skew | 依次为 位移、缩放、 旋转、错切
-Matrix(矩阵) | getMatrix, setMatrix, concat | 实际画布的位移，缩放等操作的都是图像矩阵Matrix，只不过Matrix比较难以理解和使用，故封装了一些常用的方法。
+| 操作类型       | 相关API                                    | 备注                                       |
+| ---------- | ---------------------------------------- | ---------------------------------------- |
+| 绘制颜色       | drawColor, drawRGB, drawARGB             | 使用单一颜色填充整个画布                             |
+| 绘制基本形状     | drawPoint, drawPoints, drawLine, drawLines, drawRect, drawRoundRect, drawOval, drawCircle, drawArc | 依次为 点、线、矩形、圆角矩形、椭圆、圆、圆弧                  |
+| 绘制图片       | drawBitmap, drawPicture                  | 绘制位图和图片                                  |
+| 绘制文本       | drawText,    drawPosText, drawTextOnPath | 依次为 绘制文字、绘制文字时指定每个文字位置、根据路径绘制文字          |
+| 绘制路径       | drawPath                                 | 绘制路径，绘制贝塞尔曲线时也需要用到该函数                    |
+| 顶点操作       | drawVertices, drawBitmapMesh             | 通过对顶点操作可以使图像形变，drawVertices直接对画布作用、 drawBitmapMesh只对绘制的Bitmap作用 |
+| 画布剪裁       | clipPath,    clipRect                    | 设置画布的显示区域                                |
+| 画布快照       | save, restore, saveLayerXxx, restoreToCount, getSaveCount | 依次为 保存当前状态、 回滚到上一次保存的状态、 保存图层状态、 回滚到指定状态、 获取保存次数 |
+| 画布变换       | translate, scale, rotate, skew           | 依次为 位移、缩放、 旋转、错切                         |
+| Matrix(矩阵) | getMatrix, setMatrix, concat             | 实际画布的位移，缩放等操作的都是图像矩阵Matrix，只不过Matrix比较难以理解和使用，故封装了一些常用的方法。 |
 
 > PS： Canvas常用方法在上面表格中已经全部列出了，当然还存在一些其他的方法未列出，具体可以参考官方文档 [Canvas](http://developer.android.com/reference/android/graphics/Canvas.html)
 
@@ -49,8 +49,8 @@ Matrix(矩阵) | getMatrix, setMatrix, concat | 实际画布的位移，缩放�
 ```
 
 <img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f2742437w3j30u01hcjrq.jpg" width = "300" />  
-  
-> 关于颜色的更多资料请参考[基础篇_颜色](https://github.com/GcsSloop/AndroidNote/blob/master/CustomView%2FBase%2F%5B3%5DColor.md)
+
+> 关于颜色的更多资料请参考[基础篇_颜色](https://github.com/GcsSloop/AndroidNote/blob/master/CustomView%2FBase%2F%5B03%5DColor.md)
 
 ******
 
@@ -90,10 +90,9 @@ Matrix(矩阵) | getMatrix, setMatrix, concat | 实际画布的位移，缩放�
 ```
 关于坐标原点默认在左上角，水平向右为x轴增大方向，竖直向下为y轴增大方向。
 
-> 更多参考这里 [基础篇_坐标系](https://github.com/GcsSloop/AndroidNote/blob/master/CustomView%2FBase%2F%5B1%5DCoordinateSystem.md)
+> 更多参考这里 [基础篇_坐标系](https://github.com/GcsSloop/AndroidNote/blob/master/CustomView%2FBase%2F%5B01%5DCoordinateSystem.md)
 
 <img src="http://ww1.sinaimg.cn/large/005Xtdi2jw1f2743rkifnj30u01hc74n.jpg" width = "300" />
-
 
 ******
 
@@ -109,26 +108,25 @@ Matrix(矩阵) | getMatrix, setMatrix, concat | 实际画布的位移，缩放�
 
 <img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f2745k83ybj30u01hcq3d.jpg" width = "300" />
 
-
 ******
 
 ### 绘制矩形：
-确定确定一个矩形最少需要四个数据，就是**对角线的两个点**的坐标值，这里一般采用**左上角和右下角**的两个点的坐标。
+我们都知道，确定一个矩形最少需要四个数据，就是**对角线的两个点**的坐标值，这里一般采用**左上角和右下角**的两个点的坐标。
 
 关于绘制矩形，Canvas提供了三种重载方法，第一种就是提供**四个数值(矩形左上角和右下角两个点的坐标)来确定一个矩形**进行绘制。
 其余两种是先将矩形封装为**Rect或RectF**(实际上仍然是用两个坐标点来确定的矩形)，然后传递给Canvas绘制，如下：
 
 ``` java
-        // 第一种
-        canvas.drawRect(100,100,800,400,mPaint);
+// 第一种
+canvas.drawRect(100,100,800,400,mPaint);
 
-        // 第二种
-        Rect rect = new Rect(100,100,800,400);
-        canvas.drawRect(rect,mPaint);
+// 第二种
+Rect rect = new Rect(100,100,800,400);
+canvas.drawRect(rect,mPaint);
 
-        // 第三种
-        RectF rectF = new RectF(100,100,800,400);
-        canvas.drawRect(rectF,mPaint);
+// 第三种
+RectF rectF = new RectF(100,100,800,400);
+canvas.drawRect(rectF,mPaint);
 ```
 以上三种方法所绘制出来的结果是完全一样的。
 
@@ -191,11 +189,10 @@ Matrix(矩阵) | getMatrix, setMatrix, concat | 实际画布的位移，缩放�
 
 其中灰色部分是我们所选定的矩形，而里面的圆角矩形则变成了一个椭圆，<b>实际上在rx为宽度的一半，ry为高度的一半时，刚好是一个椭圆，通过上面我们分析的原理推算一下就能得到，而当rx大于宽度的一半，ry大于高度的一半时，实际上是无法计算出圆弧的，所以drawRoundRect对大于该数值的参数进行了限制(修正)，凡是大于一半的参数均按照一半来处理。</b>
 
-
 ******
 
 ### 绘制椭圆：
-相对于绘制圆角矩形，绘制椭圆就简单的多了，因为他只需要一个矩形矩形作为参数:
+相对于绘制圆角矩形，绘制椭圆就简单的多了，因为他只需要一个矩形作为参数:
 
 ``` java
         // 第一种
@@ -277,12 +274,12 @@ useCenter   // 是否使用中心
 
 <img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f274d1smwej30u01hc3z4.jpg" width = "300" /> 
 
-可以发现使用了中心点之后绘制出来类似于一个扇形，而不使用中心点则是圆弧起始点和结束点之间的连线加上圆弧围成的图形。这样中心点这个参数的作用就很明显了，不必多说想必大家试一下就明白了。 另外可以关于角度可以参考一下这篇文章： [角度与弧度](https://github.com/GcsSloop/AndroidNote/blob/master/CustomView%2FBase%2F%5B2%5DAngleAndRadian.md)
+可以发现使用了中心点之后绘制出来类似于一个扇形，而不使用中心点则是圆弧起始点和结束点之间的连线加上圆弧围成的图形。这样中心点这个参数的作用就很明显了，不必多说想必大家试一下就明白了。 另外可以关于角度可以参考一下这篇文章： [角度与弧度](https://github.com/GcsSloop/AndroidNote/blob/master/CustomView%2FBase%2F%5B02%5DAngleAndRadian.md)
 
 相比于使用椭圆，我们还是使用正圆比较多的，使用正圆展示一下效果：
 
 ```
-        RectF rectF = new RectF(100,100,800,400);
+        RectF rectF = new RectF(100,100,600,600);
         // 绘制背景矩形
         mPaint.setColor(Color.GRAY);
         canvas.drawRect(rectF,mPaint);
@@ -293,7 +290,7 @@ useCenter   // 是否使用中心
 
         //-------------------------------------
 
-        RectF rectF2 = new RectF(100,600,800,900);
+        RectF rectF2 = new RectF(100,700,600,1200);
         // 绘制背景矩形
         mPaint.setColor(Color.GRAY);
         canvas.drawRect(rectF2,mPaint);
@@ -358,12 +355,12 @@ FILL_AND_STROKE       //描边加填充
 
 > 画布操作详细内容会在下一篇文章中讲解, 不是本文重点，但以下示例中可能会用到，所以此处简要介绍一下。
 
-相关操作  | 简要介绍
-----------|------------------------
-save      | 保存当前画布状态
-restore   | 回滚到上一次保存的状态
-translate | 相对于当前位置位移
-rotate    | 旋转
+| 相关操作      | 简要介绍        |
+| --------- | ----------- |
+| save      | 保存当前画布状态    |
+| restore   | 回滚到上一次保存的状态 |
+| translate | 相对于当前位置位移   |
+| rotate    | 旋转          |
 
 ### 制作一个饼状图
 
@@ -409,20 +406,20 @@ PS: 以上省略了get set方法
 ### 自定义View：
 先按照自定义View流程梳理一遍(确定各个步骤应该做的事情)：
 
-步骤 |     关键字    |         作用
-:---:|-------------- | -----------------------
-  1  | 构造函数      | 初始化(初始化画笔Paint)
-  2  | onMeasure     | 测量View的大小(暂时不用关心)
-  3  | onSizeChanged | 确定View大小(记录当前View的宽高)
-  4  | onLayout      | 确定子View布局(无子View，不关心)
-  5  | onDraw        | 实际绘制内容(绘制饼状图)
-  6  | 提供接口      | 提供接口(提供设置数据的接口)
+|  步骤  | 关键字           | 作用                    |
+| :--: | ------------- | --------------------- |
+|  1   | 构造函数          | 初始化(初始化画笔Paint)       |
+|  2   | onMeasure     | 测量View的大小(暂时不用关心)     |
+|  3   | onSizeChanged | 确定View大小(记录当前View的宽高) |
+|  4   | onLayout      | 确定子View布局(无子View，不关心) |
+|  5   | onDraw        | 实际绘制内容(绘制饼状图)         |
+|  6   | 提供接口          | 提供接口(提供设置数据的接口)       |
 
 代码如下：
 
 ``` java
 public class PieView extends View {
-    // 颜色表
+    // 颜色表(注意: 此处定义颜色使用的是ARGB，带Alpha通道的)
     private int[] mColors = {0xFFCCFF00, 0xFF6495ED, 0xFFE32636, 0xFF800000, 0xFF808000, 0xFFFF8C69, 0xFF808080,
             0xFFE6B800, 0xFF7CFC00};
     // 饼状图初始绘制角度
@@ -479,12 +476,12 @@ public class PieView extends View {
     // 设置数据
     public void setData(ArrayList<PieData> mData) {
         this.mData = mData;
-        initDate(mData);
+        initData(mData);
         invalidate();   // 刷新
     }
 
     // 初始化数据
-    private void initDate(ArrayList<PieData> mData) {
+    private void initData(ArrayList<PieData> mData) {
         if (null == mData || mData.size() == 0)   // 数据有问题 直接返回
             return;
 
@@ -524,7 +521,7 @@ public class PieView extends View {
 > **PS: 这个饼状图并没有添加百分比等数据，仅作为示例使用。**
 
 ## 总结：
-  
+
   其实自定义View只要按照流程一步步的走，也是比较容易的。不过里面也有不少坑，这些坑还是自己踩过印象比较深，建议大家不要直接copy源码，自己手打体验一下。
 
 ## About Me
